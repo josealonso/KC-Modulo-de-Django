@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de bitácoras</title>
+</head>
+<body>
+
+  <h1>Las mejores bitácoras en español</h1>
+  {% for blog in blogs %}
+    <h3>{{blog.title}}</h3>
+    <img src="{{blog.image}}" alt="{{blog.title}}" title="{{blog.title}}" height="300px" max-width="200px">
+  {% endfor %}
+
+</body>
+</html>

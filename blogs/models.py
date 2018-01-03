@@ -11,9 +11,9 @@ class Category(models.Model):
 
 
 class Blog(models.Model):
-    blog_name = models.CharField(max_length=60)
+    title = models.CharField(max_length=60)
     author = models.CharField(max_length=40)
-    photo = models.URLField(blank=True, null=True)
+    image = models.URLField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -24,7 +24,7 @@ class Blog(models.Model):
     # posts = models.ManyToManyField(Post, related_name='posts')
 
     def __str__(self):
-        return self.blog_name
+        return self.title
 
 
 class Post(models.Model):

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Últimas entradas</title>
+</head>
+<body>
+
+  <h1>Las últimas entradas</h1>
+  {% for post in posts %}
+    <h3>{{post.title}}</h3>
+    <img src="{{post.image}}" alt="{{post.title}}" title="{{post.title}}" height="300px" max-width="200px">
+  {% endfor %}
+
+</body>
+</html>
