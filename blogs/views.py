@@ -17,9 +17,11 @@ def blogs(request):
 
 def post_detail(request, pk):
     list_of_posts = Post.objects.filter(pk=pk)  # .select_related("category")
+    blog = Post.objects.filter(pk=pk).select_related("blog")
     if len(list_of_posts) == 0:
         return render(request, "404.html", status=404)
     else:
         post = list_of_posts[0]
-        context = {'post': post}
+        # blog = list_of_blogs[0]
+        context = {'post': post, 'blog': blog}
         return render(request, "post_detail.html", context)
