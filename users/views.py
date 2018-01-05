@@ -1,10 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.views import View
 from django.shortcuts import render, redirect
 
 
-def login(request):
-    if request.method == "POST":
+class LoginView(View):
+
+    def get(self, request):
+        return render(request, "login_form.html")
+
+    def post(self, request):
         username = request.POST.get("login_username")
         password = request.POST.get("login_password")
         authenticated_user = authenticate(username=username, password=password)
@@ -13,8 +18,6 @@ def login(request):
             return redirect('home_page')
         else:
             messages.error(request, "Usuario incorrecto o inactivo")
-
-    return render(request, "login_form.html")
 
 
 def logout(request):
