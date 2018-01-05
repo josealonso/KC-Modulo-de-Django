@@ -1,12 +1,37 @@
 from django.http import HttpResponse
-from blogs.models import Blog, Post
 from django.shortcuts import render
+from django.contrib import messages
+from django.urls import reverse
+
+from django.utils.safestring import mark_safe
+from django.views import View
+
+from blogs.models import Blog, Post
+from blogs.templates.forms import PostForm
 
 
 def home(request):
     latest_posts = Post.objects.all().order_by("created_at")
     context = {'posts': latest_posts}
     return render(request, "home.html", context)
+
+
+class CreatePostView(View):
+
+    def get(self, request):
+        form = PostForm()
+        return render(request, "post_form.html", {'form': form})
+
+    def post(self, request):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            form = PostForm()
+            url = reverse("post_detail_page", args=[post.pk])
+            message = "¡¡ Se ha creado una nueva entrada !!"
+            message += '<a href="{0}">Ver</a>'.format(url)
+            messages.success(request, message)
+        return render(request, "post_form.html", {'form': form})
 
 
 def blogs(request):
