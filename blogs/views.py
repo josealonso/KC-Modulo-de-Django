@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
@@ -10,13 +12,14 @@ from blogs.models import Blog, Post
 from blogs.templates.forms import PostForm
 
 
+@login_required
 def home(request):
     latest_posts = Post.objects.all().order_by("created_at")
     context = {'posts': latest_posts}
     return render(request, "home.html", context)
 
 
-class CreatePostView(View):
+class CreatePostView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = PostForm()
@@ -40,6 +43,7 @@ def blogs(request):
     return render(request, "blogs.html", context)
 
 
+@login_required
 def post_detail(request, pk):
     list_of_posts = Post.objects.filter(pk=pk)  # .select_related("category")
     blog = Post.objects.filter(pk=pk).select_related("blog")
