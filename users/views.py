@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login as django_login, logout as d
 from django.views import View
 from django.shortcuts import render, redirect
 
-from wordplease.users.forms import LoginForm
+from users.forms import LoginForm
 
 
 class LoginView(View):
@@ -18,7 +18,7 @@ class LoginView(View):
             username = form.cleaned_data.get("login_username")
             password = form.cleaned_data.get("login_password")
             authenticated_user = authenticate(username=username, password=password)
-            if authenticated_user and authenticated_user.is_active():
+            if authenticated_user and authenticated_user.is_active:
                 django_login(request, authenticated_user)
                 return redirect('home_page')
             else:
