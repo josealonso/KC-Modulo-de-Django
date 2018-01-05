@@ -11,18 +11,11 @@
       {% endfor %}
     {% endif %}
 
-    <form method="post">
+    <form method="post" novalidate>
       {% csrf_token %}
+      {% form.as_p%}
       <div>
-          <label for="username">Username:</label>
-          <input type="text" name="login_username" id="username" value="" placeholder="Type here your username">
-      </div>
-      <div>
-          <label for="password">Password:</label>
-          <input type="password" name="login_password" id="password" value="" placeholder="Type here your password">
-      </div>
-      <div>
-          <button type="submit">Login</button>
+          <button type="submit">Entrar</button>
       </div>
 
     </form>
