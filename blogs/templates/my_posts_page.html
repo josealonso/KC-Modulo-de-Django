@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block head_title %} Mis entradas {% endblock %}
+
+{% block content %}
+
+  <h1>Entradas del blog de {{ user }} </h1>
+
+  {% include "posts_list.html" with post=objects_list %}
+
+{% endblock %}

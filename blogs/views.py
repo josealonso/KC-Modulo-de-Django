@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from django.utils.safestring import mark_safe
 from django.views import View
+from django.views.generic import ListView
 
 from blogs.models import Blog, Post
 from blogs.templates.forms import PostForm
@@ -56,3 +57,22 @@ def post_detail(request, pk):
         # blog = list_of_blogs[0]
         context = {'post': post, 'blog': blog}
         return render(request, "post_detail.html", context)
+
+
+def my_posts(request, username):
+    user = request.user
+    # posts = Post.objects.filter(username=user)
+    # user = username
+    posts = Post.objects.filter(user=user)  # .select_related("category")
+    context = {'posts': posts, 'user': user}
+    return render(request, "my_posts_page.html", context)
+
+
+class MyPostsView(ListView):
+    model = Post
+    template_name = "my_posts_page.html"
+
+    def get_queryset(self):
+        # u = get_object_or_404(User, )
+        queryset = super(MyPostsView, self).get_queryset()
+        return queryset.filter(user=self.request.user)
