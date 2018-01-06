@@ -7,4 +7,4 @@ class PostForm(ModelForm):
 
     class Meta:
         model = Post
-        exclude = ["user"]
+        exclude = ["user"]  # "blog"]

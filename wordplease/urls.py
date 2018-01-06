@@ -11,7 +11,7 @@ urlpatterns = [
     path('login', LoginView.as_view(), name="login_page"),
     path('logout', logout, name="logout_page"),
 
-    # re_path('^blogs/(?P<username>\w+)/$', MyPostsView.as_view(), name="home_page"),  # name='my_posts_page'),
+    # re_path('^blogs/(?P<username>\w+)/$', MyPostsView.as_view(), name='my_posts_page'),
     path('blogs/<username>/', my_posts, name="my_posts_page"),
     # re_path('^blogsaBB/(?P<username>[a-z]+)/$', my_posts, name="my_posts_page"),
     path('blogs/', blogs, name='blogs_page'),
