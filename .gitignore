@@ -110,3 +110,6 @@ venv.bak/
 
 # django
 db.sqlite3
+
+# old files
+*.old.py

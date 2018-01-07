@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from django.views import View
 from django.views.generic import ListView
 
-from blogs.models import Blog, Post
+from blogs.models import Blog, Post, User
 from blogs.templates.forms import PostForm
 
 
@@ -22,18 +22,19 @@ def home(request):
 
 class CreatePostView(LoginRequiredMixin, View):
 
-    def get(self, request):
+    def get(self, request, pk):
         form = PostForm()
         return render(request, "post_form.html", {'form': form})
 
-    def post(self, request):
+    def post(self, request, pk=9):
         post = Post()
         post.user = request.user
+        post.id = pk
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save()
             form = PostForm()
-            url = reverse("post_detail_page", args=[post.pk])
+            url = reverse("post_detail_page", args=[post.user, post.pk])
             message = "¡¡ Se ha creado una nueva entrada !!"
             message += '<a href="{0}">Ver</a>'.format(url)
             messages.success(request, message)
@@ -42,13 +43,15 @@ class CreatePostView(LoginRequiredMixin, View):
 
 def blogs(request):
     list_of_blogs = Blog.objects.all().order_by("created_at")
-    context = {'blogs': list_of_blogs}
+    # list_of_blogs = User.objects.filter(blog=)  # .select_related("category")
+    list_of_users = User.objects.all()
+    context = {'users': list_of_users, 'blogs': list_of_blogs}
     return render(request, "blogs.html", context)
 
 
 @login_required
-def post_detail(request, pk):
-    list_of_posts = Post.objects.filter(pk=pk)  # .select_related("category")
+def post_detail(request, username, pk):
+    list_of_posts = Post.objects.filter(user=request.user, pk=pk)  # .select_related("category")
     blog = Post.objects.filter(pk=pk).select_related("blog")
     if len(list_of_posts) == 0:
         return render(request, "404.html", status=404)
@@ -63,8 +66,9 @@ def my_posts(request, username):
     user = request.user
     # posts = Post.objects.filter(username=user)
     # user = username
-    posts = Post.objects.filter(user=user)  # .select_related("category")
-    context = {'posts': posts, 'user': user}
+    # posts = Post.objects.filter(user=username)  # ----> ValueError
+    posts = Post.objects.filter(user=user)
+    context = {'posts': posts, 'user': username}
     return render(request, "my_posts_page.html", context)
 
 

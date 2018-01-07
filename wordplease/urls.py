@@ -12,10 +12,11 @@ urlpatterns = [
     path('logout', logout, name="logout_page"),
 
     # re_path('^blogs/(?P<username>\w+)/$', MyPostsView.as_view(), name='my_posts_page'),
+    path('blogs/<username>/<int:pk>', post_detail, name="post_detail_page"),
     path('blogs/<username>/', my_posts, name="my_posts_page"),
     # re_path('^blogsaBB/(?P<username>[a-z]+)/$', my_posts, name="my_posts_page"),
     path('blogs/', blogs, name='blogs_page'),
     path('new-post/', CreatePostView.as_view(), name="create_post_page"),
-    path('posts/<int:pk>', post_detail, name="post_detail_page"),
+
     path('', home, name="home_page")
 ]

@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de bitácoras</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block head_title %} Lista de bitácoras {% endblock %}
+{% block content %}
 
   <h1>Las mejores bitácoras en español</h1>
-  {% for blog in blogs %}
-    <h3>{{blog.title}}</h3>
-    <img src="{{blog.image}}" alt="{{blog.title}}" title="{{blog.title}}" height="300px" max-width="200px">
+  {% for user in users %}
+    <a href="{% url 'my_posts_page' username=user %}">
+      <h3>{{user.blog.title}}</h3>
+      <img src="{{user.blog.image}}" alt="{{user.blog.title}}" title="{{user.blog.title}}" height="300px" max-width="200px">
+    </a>
   {% endfor %}
 
-</body>
-</html>
+{% endblock%}
