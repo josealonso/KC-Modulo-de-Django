@@ -11,7 +11,7 @@
         <a href="{% url 'home_page' %}">Inicio | </a>
         <a href="{% url 'blogs_page' %}">Lista de blogs | </a>
         {% if user.is_authenticated %}
-          <a href="{% url 'my_posts_page' username=request.user %}">Mis entradas | </a>
+          <a href="{% url 'user_posts_page' username=user %}">Mis entradas | </a>
           <a href="{% url 'create_post_page' %}">Nueva entrada | </a>
           <a href="{% url 'logout_page' %}">Salir</a>
         {% else %}

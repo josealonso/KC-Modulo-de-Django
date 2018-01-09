@@ -10,17 +10,6 @@ class Category(models.Model):
         return self.name
 
 
-class Blog(models.Model):
-    title = models.CharField(max_length=60)
-    image = models.URLField(blank=True, null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=130)
@@ -28,7 +17,7 @@ class Post(models.Model):
     content = models.TextField()
     image = models.URLField(blank=True, null=True)
     video = models.URLField(blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ManyToManyField(Category)
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -36,11 +25,4 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-
-class User(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.PROTECT)
-    author = models.CharField(max_length=70)
-
-    def __str__(self):
-        return self.author
 

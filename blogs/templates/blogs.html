@@ -5,9 +5,8 @@
 
   <h1>Las mejores bitácoras en español</h1>
   {% for user in users %}
-    <a href="{% url 'my_posts_page' username=user %}">
-      <h3>{{user.blog.title}}</h3>
-      <img src="{{user.blog.image}}" alt="{{user.blog.title}}" title="{{user.blog.title}}" height="300px" max-width="200px">
+    <a href="{% url 'user_posts_page' username=user %}">
+      <h4>Blog de {{user}}</h4>
     </a>
   {% endfor %}
 

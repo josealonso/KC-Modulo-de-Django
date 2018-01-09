@@ -1,4 +1,6 @@
-# Wordplease: yet another blogging platform
+# KC-Modulo-de-Django
+
+## Wordplease: yet another blogging platform
 
 ### Development setup
 

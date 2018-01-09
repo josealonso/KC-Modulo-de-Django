@@ -112,4 +112,5 @@ venv.bak/
 db.sqlite3
 
 # old files
-*.old.py
+*.old.*
+
