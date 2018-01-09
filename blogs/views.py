@@ -24,19 +24,19 @@ def home(request):
 
 class CreatePostView(LoginRequiredMixin, View):
 
-    def get(self, request, pk):
+    def get(self, request):
         form = PostForm()
         return render(request, "post_form.html", {'form': form})
 
-    def post(self, request, pk=9):
+    def post(self, request):
         post = Post()
         post.user = request.user
-        post.id = pk
+        # post.id = pk
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save()
             form = PostForm()
-            url = reverse("post_detail_page", args=[post.user, post.pk])
+            url = reverse("post_detail_page", args=[post.user.username, post.pk])
             message = "¡¡ Se ha creado una nueva entrada !!"
             message += '<a href="{0}">Ver</a>'.format(url)
             messages.success(request, message)
@@ -52,24 +52,22 @@ def blogs(request):
 
 @login_required
 def post_detail(request, username, pk):
-    list_of_posts = Post.objects.filter(user=request.user, pk=pk)  # .select_related("category")
-    # blog = Post.objects.filter(pk=pk).select_related("blog")
+    # list_of_posts = Post.objects.filter(pk=pk).select_related("user=username")
+    #  Error: Invalid field name given in select_related
+    list_of_posts = Post.objects.filter(pk=pk).select_related("user")
     if len(list_of_posts) == 0:
         return render(request, "404.html", status=404)
     else:
         post = list_of_posts[0]
         # blog = list_of_blogs[0]
-        context = {'post': post}   # , 'blog': blog}
+        context = {'post': post}
         return render(request, "post_detail.html", context)
 
 
-def my_posts(request):
-    # user = request.user
+def my_posts(request):    # Not used
     posts = Post.objects.filter(__username__exact=username)
-    # user = username
     # posts = Post.objects.filter(user=username)  # ----> ValueError
-    # posts = Post.objects.filter(user=user)
-    context = {'posts': posts, 'user': username}
+    context = {'posts': posts, 'user': request.user}
     return render(request, "user_posts_page.html", context)
 
 
@@ -82,9 +80,7 @@ class UserPostsView(ListView):
         queryset = super(UserPostsView, self).get_queryset()
         username = self.kwargs.get("username")  # param. "username" declarado en "urls.py"
         user = get_object_or_404(User, username__iexact=username)
-        # user = get_object_or_404(User, username__exact=username)
-
-        # return queryset.filter(username='jose')    # self.request.user)
+        # return queryset.filter(username='jose')
         return queryset.filter(user=user, modified_at__lte=now.strftime("%Y-%m-%d")).order_by('-created_at')
 
     def get_context_data(self, **kwargs):
