@@ -17,7 +17,7 @@ import datetime
 
 @login_required
 def home(request):
-    latest_posts = Post.objects.all().order_by("created_at")
+    latest_posts = Post.objects.all().order_by("-created_at")
     context = {'posts': latest_posts}
     return render(request, "home.html", context)
 
@@ -80,8 +80,7 @@ class UserPostsView(ListView):
         queryset = super(UserPostsView, self).get_queryset()
         username = self.kwargs.get("username")  # param. "username" declarado en "urls.py"
         user = get_object_or_404(User, username__iexact=username)
-        # return queryset.filter(username='jose')
-        return queryset.filter(user=user, publication_date__lte=now.strftime("%Y-%m-%d")).order_by('-created_at')
+        return queryset.filter(user=user, publication_date__lte=now.strftime("%Y-%m-%d")).order_by('-publication_date')
 
     def get_context_data(self, **kwargs):
         username = self.kwargs.get("username")
