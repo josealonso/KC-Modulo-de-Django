@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from blogs.models import Post, Category
 
-admin.site.site_header = "Blogs Administration"
+admin.site.site_header = "Administración de blogs"
 admin.site.site_title = admin.site.site_header
 
 admin.site.register(Category)

@@ -9,3 +9,5 @@ class PostForm(ModelForm):
         model = Post
         fields = '__all__'
         exclude = ["user"]
+        localized_fields = ["publication_date"]
+

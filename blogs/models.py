@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+import datetime
 
 
 class Category(models.Model):
@@ -15,6 +16,7 @@ class Post(models.Model):
     title = models.CharField(max_length=130)
     summary = models.TextField()
     content = models.TextField()
+    publication_date = models.DateTimeField(default=datetime.datetime.now())
     image = models.URLField(blank=True, null=True)
     video = models.URLField(blank=True, null=True)
     # category = models.ManyToManyField(Category)
