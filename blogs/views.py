@@ -22,27 +22,6 @@ def home(request):
     return render(request, "home.html", context)
 
 
-class CreatePostView(LoginRequiredMixin, View):
-
-    def get(self, request):
-        form = PostForm()
-        return render(request, "post_form.html", {'form': form})
-
-    def post(self, request):
-        post = Post()
-        post.user = request.user
-        # post.id = pk
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save()
-            form = PostForm()
-            url = reverse("post_detail_page", args=[post.user.username, post.pk])
-            message = "¡¡ Se ha creado una nueva entrada !!"
-            message += '<a href="{0}">Ver</a>'.format(url)
-            messages.success(request, message)
-        return render(request, "post_form.html", {'form': form})
-
-
 def blogs(request):
     # list_of_blogs = Blog.objects.all().order_by("created_at")
     list_of_users = User.objects.all()
@@ -69,6 +48,27 @@ def my_posts(request):    # Not used
     # posts = Post.objects.filter(user=username)  # ----> ValueError
     context = {'posts': posts, 'user': request.user}
     return render(request, "user_posts_page.html", context)
+
+
+class CreatePostView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        form = PostForm()
+        return render(request, "post_form.html", {'form': form})
+
+    def post(self, request):
+        post = Post()
+        post.user = request.user
+        # post.id = pk
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save()
+            form = PostForm()
+            url = reverse("post_detail_page", args=[post.user.username, post.pk])
+            message = "¡¡ Se ha creado una nueva entrada !!"
+            message += '<a href="{0}">Ver</a>'.format(url)
+            messages.success(request, message)
+        return render(request, "post_form.html", {'form': form})
 
 
 class UserPostsView(ListView):

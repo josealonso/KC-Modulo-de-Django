@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login as django_login, logout as d
 from django.views import View
 from django.shortcuts import render, redirect
 
-from users.forms import LoginForm
+from users.forms import LoginForm, SignupForm
 
 
 class LoginView(View):
@@ -27,6 +27,23 @@ class LoginView(View):
                 # messages.error(request, "Usuario incorrecto o inactivo")
                 form.add_error(None, "Usuario incorrecto o inactivo")
         return render(request, "login_form.html", {'form': form})
+
+
+class SignupView(View):
+
+    def get(self, request):
+        context = {'form': SignupForm()}
+        return render(request, "login_form.html", context)
+
+    def post(self, request):
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            authenticated_user = authenticate(username=username, password=password)
+            django_login(request, authenticated_user)
+            return redirect('home_page')
 
 
 def logout(request):
