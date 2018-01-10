@@ -14,7 +14,10 @@
             <strong>Fuente de la imagen:</strong> {{ post.image }}
         </li>
         <li>
-            <strong>Categoría:</strong> {{ post.category }}
+            <strong>Categorías</strong>
+
+                {{ post.category }}
+
         </li>
         <li>
             <strong>Fecha de publicación:</strong> {{ post.created_at | date:"d/m/Y" }}

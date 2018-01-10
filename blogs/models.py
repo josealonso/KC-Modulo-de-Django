@@ -17,7 +17,8 @@ class Post(models.Model):
     content = models.TextField()
     image = models.URLField(blank=True, null=True)
     video = models.URLField(blank=True, null=True)
-    category = models.ManyToManyField(Category)
+    # category = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
