@@ -3,7 +3,7 @@ from django.urls import path
 
 from blogs.views import home, blogs, post_detail, my_posts, CreatePostView, UserPostsView
 from users.views import LoginView, logout, SignupView
-from users.api import HelloWorld, UsersListAPI
+from users.api import HelloWorld, UsersListAPI, UserDetailAPI
 
 
 urlpatterns = [
@@ -22,5 +22,6 @@ urlpatterns = [
 
     # API REST
     path('api/1.0/hello', HelloWorld.as_view(), name="api_hello_world"),
+    path('api/1.0/users/<int:pk>', UserDetailAPI.as_view(), name="api_users_detail"),
     path('api/1.0/users', UsersListAPI.as_view(), name="api_users_list")
 ]
