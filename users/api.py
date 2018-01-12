@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from users.permissions import UsersPermission
 
 from users.serializers import UserSerializer, UsersListSerializer
 
@@ -36,6 +37,8 @@ class UsersListAPI(APIView):
 
 
 class UserDetailAPI(APIView):
+
+    permission_classes = [UsersPermission]
 
     def get(self, request, pk):
         # user = User.objects.all().filter(pk=pk)

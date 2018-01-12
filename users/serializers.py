@@ -11,6 +11,7 @@ class UsersListSerializer(serializers.Serializer):
 
 
 class UserSerializer(UsersListSerializer):
+
     id = serializers.ReadOnlyField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
