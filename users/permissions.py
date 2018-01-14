@@ -19,8 +19,8 @@ class UsersPermission(BasePermission):
             return True
 
         '''
-        if not POST and not is_superuser:
-            return False
+        if request.user.is_authenticated and request.method != "POST" and not request.user.is_superuser:
+            return True
         '''
 
     def has_object_permission(self, request, view, obj):

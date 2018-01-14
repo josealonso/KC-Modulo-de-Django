@@ -41,14 +41,15 @@ class UserDetailAPI(APIView):
     permission_classes = [UsersPermission]
 
     def get(self, request, pk):
-        # user = User.objects.all().filter(pk=pk)
-        user = get_object_or_404(User, pk=pk)
+        user = get_object_or_404(User, username=pk)
+        self.check_object_permissions(request, user)
         serializer = UserSerializer(user)
         # Llama al método create de serializers.py
         return Response(serializer.data)
 
     def put(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
+        user = get_object_or_404(User, username=pk)
+        self.check_object_permissions(request, user)
         serializer = UserSerializer(user, data=request.data)
         # Llama al método update de serializers.py
         if serializer.is_valid():
@@ -62,7 +63,8 @@ class UserDetailAPI(APIView):
     Patch actualiza sólo un campo ---> parámetro "partial" del serializador igual a True
     """
     def delete(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
+        user = get_object_or_404(User, username=pk)
+        self.check_object_permissions(request, user)
         user.delete()
         #    serializer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
