@@ -1,10 +1,16 @@
-from django.contrib.auth.models import User
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from users.serializers import BlogsListSerializer
+import datetime
 
-from users.serializers import UsersListSerializer
+from django.contrib.auth.models import User
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.views import APIView
+
+from users.serializers import BlogsListSerializer
+from blogs.models import Post
+from blogs.serializers import PostsListSerializer, PostSerializer
+from blogs.permissions import PostPermission
 
 
 class BlogsListAPI(APIView):
@@ -27,3 +33,35 @@ class BlogsListAPI(APIView):
         serializer = BlogsListSerializer(paginated_users, many=True)
         return paginator.get_paginated_response(serializer.data)
 
+
+class PostsListAPI(ListCreateAPIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['title', 'summary']
+    ordering_fields = ['title', 'publication_date']
+
+    def get_queryset(self):
+        now = datetime.datetime.now()
+        user = self.request.user
+        queryset = Post.objects.all()
+        if user.is_authenticated and user.is_superuser:
+            return queryset.order_by('-publication_date')
+        else:
+            return queryset.filter(publication_date__lte=now.strftime("%Y-%m-%d")).order_by('-publication_date')
+
+    def get_serializer_class(self):
+        return PostsListSerializer if self.request.method == 'GET' else PostSerializer
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            serializer.save(user=self.request.user)
+
+
+class PostDetailAPI(RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [PostPermission]
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
