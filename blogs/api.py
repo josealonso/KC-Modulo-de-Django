@@ -10,7 +10,7 @@ from users.serializers import UsersListSerializer
 class BlogsListAPI(APIView):
 
     def get(self, request):
-        '''
+
         users = User.objects.all()
         query_params = request.query_params
         blog_name = query_params.get('blog_name', None)
@@ -24,12 +24,6 @@ class BlogsListAPI(APIView):
 
         paginator = PageNumberPagination()
         paginated_users = paginator.paginate_queryset(users, request)
-        '''
-        # serializer = BlogsListSerializer(paginated_users, many=True)
-        # return paginator.get_paginated_response(serializer.data)
-        # return Response(serializer.data)
-        # return Response(['Lista de blogs'])
-        users2 = User.objects.all()
-        serializer2 = BlogsListSerializer(users2, many=True)
-        return Response(serializer2.data)
+        serializer = BlogsListSerializer(paginated_users, many=True)
+        return paginator.get_paginated_response(serializer.data)
 

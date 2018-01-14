@@ -6,8 +6,12 @@ from django.urls import reverse
 
 class BlogsListSerializer(serializers.ModelSerializer):
 
-    blog_url = serializers.SerializerMethodField('build_blog_url')
-    blog_name = serializers.SerializerMethodField('build_blog_name')
+    url = serializers.SerializerMethodField('build_blog_url')
+    name = serializers.SerializerMethodField('build_blog_name')
+    author = serializers.SerializerMethodField('build_blog_author')
+
+    def build_blog_author(self, instance):
+        return instance.first_name + " " + instance.last_name
 
     def build_blog_name(self, username):
         return 'Blog de ' + str(username)
@@ -21,7 +25,7 @@ class BlogsListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['blog_name', 'blog_url']
+        fields = ['name', 'author', 'url']
 
 
 class UsersListSerializer(serializers.Serializer):

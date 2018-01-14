@@ -27,4 +27,5 @@ urlpatterns = [
     path('api/1.0/users/<slug:pk>', UserDetailAPI.as_view(), name="api_users_detail"),
     path('api/1.0/users', UsersListAPI.as_view(), name="api_users_list"),
     path('api/1.0/blogs', BlogsListAPI.as_view(), name="api_blogs_list")
+
 ]
