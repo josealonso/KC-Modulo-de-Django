@@ -15,7 +15,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=130)
     summary = models.TextField()
-    content = models.TextField()
+    body = models.TextField()
     publication_date = models.DateTimeField(default=datetime.datetime.now())
     image = models.URLField(blank=True, null=True)
     video = models.URLField(blank=True, null=True)
