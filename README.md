@@ -70,7 +70,7 @@ Possible values are:
 - **title**, **-title**
 - **publication_date**, **-publication_date**
 
-Example: http://localhost:8000/api/1.0/blogs/<username>?order_by=title  
+Example: http://localhost:8000/api/1.0/blogs/\<username\>?order_by=title  
 
 ## Creating a post
 
@@ -98,17 +98,17 @@ and these parameters in the body:
 Non-authenticated users can see only published posts.
 Only the superuser and the post author can see the non-published posts.
 
-**GET**  http://localhost:8000/api/1.0/posts/\<id\>
+**GET**  [http://localhost:8000/api/1.0/posts/\<id\>](http://localhost:8000/api/1.0/posts/\<id\>)
 
 ## How to update a post detail
 
 Only the superuser and the post author can perform this operation.
 
-**PUT**  http://localhost:8000/api/1.0/posts/\<id\>
+**PUT**  [http://localhost:8000/api/1.0/posts/\<id\>](http://localhost:8000/api/1.0/posts/\<id\>)
 
 ## How to delete a post detail
 
 Only the superuser and the post author can perform this operation.
 
-**DELETE**  http://localhost:8000/api/1.0/posts/&lt;id&gt;
+**DELETE**  [http://localhost:8000/api/1.0/posts/\<id\>](http://localhost:8000/api/1.0/posts/\<id\>)
   
