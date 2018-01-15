@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.models import User
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
@@ -37,6 +38,7 @@ class BlogsListAPI(APIView):
 class PostsListAPI(ListCreateAPIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = (TokenAuthentication,)
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'summary']
     ordering_fields = ['title', 'publication_date']
@@ -62,6 +64,7 @@ class PostDetailAPI(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [PostPermission]
+    authentication_classes = (TokenAuthentication,)
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)

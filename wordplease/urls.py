@@ -6,6 +6,7 @@ from users.views import LoginView, logout, SignupView
 
 from users.api import HelloWorld, UsersListAPI, UserDetailAPI
 from blogs.api import BlogsListAPI, PostsListAPI, PostDetailAPI
+from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,7 @@ urlpatterns = [
     path('api/1.0/blogs', BlogsListAPI.as_view(), name="api_blogs_list"),
     path('api/1.0/posts/<int:pk>', PostDetailAPI.as_view(), name="api_posts_detail"),
     path('api/1.0/posts', PostsListAPI.as_view(), name="api_posts_list"),
+
+    path('api/1.0/users/get-token', views.obtain_auth_token, name="api_get_token"),
 
 ]

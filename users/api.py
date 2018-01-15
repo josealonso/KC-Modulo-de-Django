@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -14,6 +15,8 @@ class HelloWorld(APIView):
 
 
 class UsersListAPI(APIView):
+
+    # Cualquiera puede ver la lista de usuarios
 
     def get(self, request):
         users = User.objects.all()   # users es un objeto que hay que convertir al formato de salida
@@ -32,6 +35,7 @@ class UsersListAPI(APIView):
 
 class UserDetailAPI(APIView):
 
+    authentication_classes = (TokenAuthentication,)
     permission_classes = [UsersPermission]
 
     def get(self, request, pk):
