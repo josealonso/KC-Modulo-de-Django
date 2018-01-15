@@ -110,5 +110,5 @@ Only the superuser and the post author can perform this operation.
 
 Only the superuser and the post author can perform this operation.
 
-**DELETE**  http://localhost:8000/api/1.0/posts/\<id\>
+**DELETE**  http://localhost:8000/api/1.0/posts/&lt;id&gt;
   
