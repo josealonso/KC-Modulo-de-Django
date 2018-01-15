@@ -70,7 +70,7 @@ Possible values are:
 - **title**, **-title**
 - **publication_date**, **-publication_date**
 
-Example: http://localhost:8000/api/1.0/blogs/\<username\>?order_by=title  
+[Example: http://localhost:8000/api/1.0/blogs/\<username\>?order_by=title](http://localhost:8000/api/1.0/blogs/\<username\>?order_by=title)  
 
 ## Creating a post
 
