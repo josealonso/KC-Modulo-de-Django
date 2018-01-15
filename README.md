@@ -63,7 +63,7 @@ http://localhost:8000/api/1.0/blogs
 
 TODO
 
-## Ordering the a user's posts
+## Ordering a user's posts
 
 The query parameter **order_by** is used.
 Possible values are:
@@ -98,17 +98,17 @@ and these parameters in the body:
 Non-authenticated users can see only published posts.
 Only the superuser and the post author can see the non-published posts.
 
-**GET**  http://localhost:8000/api/1.0/posts/<id\>
+**GET**  http://localhost:8000/api/1.0/posts/\<id\>
 
 ## How to update a post detail
 
 Only the superuser and the post author can perform this operation.
 
-**PUT**  http://localhost:8000/api/1.0/posts/<id\>
+**PUT**  http://localhost:8000/api/1.0/posts/\<id\>
 
 ## How to delete a post detail
 
 Only the superuser and the post author can perform this operation.
 
-**DELETE**  http://localhost:8000/api/1.0/posts/<id\>
+**DELETE**  http://localhost:8000/api/1.0/posts/\<id\>
   
