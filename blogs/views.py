@@ -22,6 +22,7 @@ def home(request):
     return render(request, "home.html", context)
 
 
+@login_required
 def blogs(request):
     # list_of_blogs = Blog.objects.all().order_by("created_at")
     list_of_users = User.objects.all()
