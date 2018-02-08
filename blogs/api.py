@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.views import APIView
 
 from users.serializers import BlogsListSerializer
@@ -15,6 +15,8 @@ from blogs.permissions import PostPermission
 
 
 class BlogsListAPI(APIView):
+
+    permission_classes = [IsAdminUser]
 
     def get(self, request):
 
