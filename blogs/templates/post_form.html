@@ -3,7 +3,7 @@
 {% block head_title %} Nueva entrada {% endblock %}
 
 {% block content %}
-  <h1>Crear entrada</h1>
+  <h1 class="article-title">Crear entrada</h1>
 
   {% if messages %}
     {% for message in messages %}
@@ -13,7 +13,7 @@
     {% endfor %}
   {% endif %}
 
-  <form method="post" novalidate>
+  <form class="summary-container" method="post" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Crear entrada</button>

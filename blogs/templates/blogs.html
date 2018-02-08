@@ -1,23 +1,17 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{% static 'css/my_styles.css' %}">
-{% endblock %}
 
 {% block head_title %} Lista de bitácoras {% endblock %}
 {% block content %}
 
+  <h1 class="article-title">Las mejores bitácoras en español</h1>
   <section class="blogs-list-container">
-
-    <h1>Las mejores bitácoras en español</h1>
     {% for user in users %}
-      <a href="{% url 'user_posts_page' username=user %}">
+        <a href="{% url 'user_posts_page' username=user %}">
         <h4>Blog de {{user}}</h4>
-      </a>
-
+        </a>
     {% endfor %}
-
   </section>
 
-{% endblock%}
+
+
+{% endblock %}
