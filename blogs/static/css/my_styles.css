@@ -1,13 +1,23 @@
 
-.clase-color {
-    color: red;
-}
-
 .article-wrapper {
-    text-align: center;
-    color: red;
+    color: black;
+    /* text-align: center; */
 }
 
-.mi-clase {
-    color: red;
+.article-title {
+    text-align: center;
+}
+
+.image-container {
+    padding: 30px 0 30px 0;
+    text-align: center;
+}
+
+.summary-container {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.blogs-list-container {
+    padding-left: 10%;
 }
