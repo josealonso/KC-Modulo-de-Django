@@ -81,7 +81,7 @@ class UserPostsView(ListView):
         queryset = super(UserPostsView, self).get_queryset()
         username = self.kwargs.get("username")  # param. "username" declarado en "urls.py"
         user = get_object_or_404(User, username__iexact=username)
-        return queryset.filter(user=user, publication_date__lte=now.strftime("%Y-%m-%d")).order_by('-publication_date')
+        return queryset.filter(user=user).order_by('-publication_date')
 
     def get_context_data(self, **kwargs):
         username = self.kwargs.get("username")
