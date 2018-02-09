@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.views import View
 from django.shortcuts import render, redirect
+from rest_framework.authtoken.models import Token
 
 from users.forms import LoginForm, SignupForm
 
@@ -33,15 +34,15 @@ class SignupView(View):
 
     def get(self, request):
         context = {'form': SignupForm()}
-        return render(request, "login_form.html", context)
+        return render(request, "signup.html", context)
 
     def post(self, request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            authenticated_user = authenticate(username=username, password=password)
+            raw_password = form.cleaned_data.get("password1")
+            authenticated_user = authenticate(username=username, password=raw_password)
             django_login(request, authenticated_user)
             return redirect('home_page')
 

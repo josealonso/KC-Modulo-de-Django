@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head_title %} Sign Up {% endblock %}
+
+{% block content %}
+
+    <h1 class="article-title">Identificación</h1>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form class="summary-container" method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div>
+          <button type="submit">Dar de alta</button>
+      </div>
+
+    </form>
+
+
+{% endblock %}
