@@ -49,7 +49,7 @@ http://localhost:8000/api/1.0/users/get-token
 
 ## Getting the blogs list
 
-The user needs not to be registered and must do a **GET** request
+Only the superuser can do this **GET** request
 
 http://localhost:8000/api/1.0/blogs
 
