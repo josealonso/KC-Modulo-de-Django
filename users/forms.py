@@ -10,10 +10,10 @@ class LoginForm(forms.Form):
 
 
 class SignupForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False)
-    last_name = forms.CharField(max_length=30, required=False)
-    username = forms.CharField(max_length=30, required=True, help_text='Obligatorio.')
-    email = forms.EmailField(max_length=254, required=False)
+    first_name = forms.CharField(max_length=30, required=False, label="Nombre")
+    last_name = forms.CharField(max_length=30, required=False, label="Apellidos")
+    username = forms.CharField(max_length=30, required=True,  label="Nombre de usuario", help_text='Obligatorio.')
+    email = forms.EmailField(max_length=254, required=False,  label="Correo electrónico")
 
     class Meta:
         model = User
