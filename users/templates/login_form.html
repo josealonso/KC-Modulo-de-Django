@@ -3,7 +3,7 @@
 {% block head_title %} Login {% endblock %}
 {% block content %}
 
-    <h1>Identificación</h1>
+    <h1 class="article-title">Identificación</h1>
 
     {% if messages %}
       {% for message in messages %}
@@ -11,7 +11,7 @@
       {% endfor %}
     {% endif %}
 
-    <form method="post" novalidate>
+    <form class="summary-container" method="post" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
       <div>
