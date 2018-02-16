@@ -9,20 +9,12 @@ class UsersPermission(BasePermission):
     def has_permission(self, request, view):
         from users.api import UserDetailAPI
 
-        if request.method == "POST" or request.user.is_superuser:
+        if request.user.is_authenticated and isinstance(view, UserDetailAPI):
             return True
-
-        if request.user.is_authenticated and request.method == "GET" and isinstance(view, UserDetailAPI):
-            return True
-
-        if request.user.is_authenticated and (request.method == "PUT" or request.method == "DELETE"):
-            return True
-
-        '''
-        if request.user.is_authenticated and request.method != "POST" and not request.user.is_superuser:
-            return True
-        '''
+        else:
+            return request.method != "GET" or request.user.is_superuser
 
     def has_object_permission(self, request, view, obj):
         # obj es el usuario solicitado
         return request.user == obj or request.user.is_superuser
+

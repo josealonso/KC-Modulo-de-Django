@@ -16,7 +16,7 @@ from blogs.permissions import PostPermission
 
 class BlogsListAPI(APIView):
 
-    permission_classes = [IsAdminUser]
+    # Even an anonymous user can see the blogs list
 
     def get(self, request):
 
