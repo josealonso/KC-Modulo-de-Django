@@ -15,7 +15,7 @@
 
 All the users **must** have one and only one blog.
 
-All the endpoints require authentication, except the GET requests to **/api/1.0/users**, **/api/1.0/blogs** and **/api/1.0/posts** 
+All the endpoints require authentication, except the GET requests to **/api/1.0/blogs** and to **/api/1.0/posts**. 
 
 ## How to register a user
 
@@ -49,7 +49,7 @@ http://localhost:8000/api/1.0/users/get-token
 
 ## Getting the blogs list
 
-Only the superuser can do this **GET** request
+The user needs not to be registered and must do a **GET** request
 
 http://localhost:8000/api/1.0/blogs
 
@@ -96,19 +96,19 @@ and these parameters in the body:
 ## How to retrieve a post detail
 
 Non-authenticated users can see only published posts.
-Only the superuser and the post author can see the non-published posts.
+Only the superuser and the author of that post can see a non-published post.
 
 **GET**  [http://localhost:8000/api/1.0/posts/\<id\>](http://localhost:8000/api/1.0/posts/\<id\>)
 
 ## How to update a post detail
 
-Only the superuser and the post author can perform this operation.
+Only the superuser and the author of that post can perform this operation.
 
 **PUT**  [http://localhost:8000/api/1.0/posts/\<id\>](http://localhost:8000/api/1.0/posts/\<id\>)
 
 ## How to delete a post detail
 
-Only the superuser and the post author can perform this operation.
+Only the superuser and the author of that post can perform this operation.
 
 **DELETE**  [http://localhost:8000/api/1.0/posts/\<id\>](http://localhost:8000/api/1.0/posts/\<id\>)
   
