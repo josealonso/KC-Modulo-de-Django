@@ -49,8 +49,12 @@ class PostsListAPI(ListCreateAPIView):
         now = datetime.datetime.now()
         user = self.request.user
         queryset = Post.objects.all()
+        # posts = Post.objects.filter(__username__exact=username)
+        # if user == 'AnonymousUser':
         if user.is_authenticated and user.is_superuser:
             return queryset.order_by('-publication_date')
+        elif user.is_authenticated:
+            return queryset.filter(user=self.request.user).order_by('-publication_date')
         else:
             return queryset.filter(publication_date__lte=now.strftime("%Y-%m-%d")).order_by('-publication_date')
 

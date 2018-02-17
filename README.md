@@ -55,9 +55,11 @@ http://localhost:8000/api/1.0/blogs
 
 ## Getting all the posts from a user's blog
 
-The user needs not to be registered and must do a **GET** request
+If the user is not registered or is the superuser all the posts will be shown.
 
-http://localhost:8000/api/1.0/blogs
+If the user is registered only the posts from his blog should be shown.
+
+**GET** http://localhost:8000/api/1.0/posts
 
 ## Searching posts inside a blog
 
@@ -70,7 +72,7 @@ Possible values are:
 - **title**, **-title**
 - **publication_date**, **-publication_date**
 
-[Example: http://localhost:8000/api/1.0/blogs/\<username\>?order_by=title](http://localhost:8000/api/1.0/blogs/\<username\>?order_by=title)  
+[Example: http://localhost:8000/api/1.0/posts/?order_by=title](http://localhost:8000/api/1.0/posts?order_by=title)  
 
 ## Creating a post
 
