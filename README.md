@@ -53,7 +53,7 @@ The user needs not to be registered and must do a **GET** request
 
 http://localhost:8000/api/1.0/blogs
 
-## Getting all the posts from a user's blog
+## Getting posts
 
 If the user is not registered or is the superuser all the posts will be shown.
 
